@@ -1,0 +1,109 @@
+CodeBook
+This code book describes the input data, the variables for the output tiny dataset, and the different steps performed to arrive to the final output.
+The data source
+The original data can be found here: https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
+A description of the original dataset can be found here: http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones
+The Input Data
+The input zip file contained the following datasets:
+'features_info.txt': Shows information about the variables used on the feature vector.
+'features.txt': List of all features.
+'activity_labels.txt': Links the class labels with their activity name.
+'train/X_train.txt': Training set.
+'train/y_train.txt': Training labels.
+'test/X_test.txt': Test set.
+'test/y_test.txt': Test labels.
+The following files are available for the train and test data. Their descriptions are equivalent.
+'train/subject_train.txt': Each row identifies the subject who performed the activity for each window sample. Its range is from 1 to 30.
+'train/Inertial Signals/total_acc_x_train.txt': The acceleration signal from the smartphone accelerometer X axis in standard gravity units 'g'. Every row shows a 128 element vector. The same description applies for the 'total_acc_x_train.txt' and 'total_acc_z_train.txt' files for the Y and Z axis.
+'train/Inertial Signals/body_acc_x_train.txt': The body acceleration signal obtained by subtracting the gravity from the total acceleration.
+'train/Inertial Signals/body_gyro_x_train.txt': The angular velocity vector measured by the gyroscope for each window sample. The units are radians/second.
+Transformation Steps
+To obtain the final tiny dataset containing the average measurements for each activity and each subject, the initial datasets were subjected to the following transformations:
+1. The datasets containing the training and the test data are merged to create single dataset.
+2. Only the measurements on the mean and standard deviation for each measurement are extracted.
+3. Descriptive activity names are assigned to the activities in the dataset,
+4. The dataset is appropriately labeled with descriptive activity names.
+5. A second tidy dataset is created containing the average of each variable for each activity and each subject.
+How Run_Analysis.R Works?
+The Run_Analysis script transforms the datasets into tidy data by performing the following:
+1. Check if the zip file containing the input datasets is in the working directory then downlod it.
+2. Load the training and test data for the measurements, activities and subjects.
+3. The features and activity labels are loaded in separate data frames.
+4. The training and test data for measurements, activities and subject are merged in a single dataset.
+5. Measurements different than means and standard deviations are filtered from the dataset via the function mean_std_features() function.
+6. Apply the activity names
+7. The first tidy dataset is obtained by combining the subjects, activities and measurements data frames via cbind() and written to "tidy_dataset.txt".
+8. The tidy data set is melted using the first two columns as the identity. The melted data is aggregated by "mean" for each subject and identity. The result is written to "tidy_dataset22.txt"
+
+The Output Tidy Dataset
+- tidy_dataset.txt : 10299 observations of 68 variables 
+- tidy_dataset22: 180 obseravations of 68 variables. 
+The list of variables is provided below:
+subject
+activity
+tbodyacc.mean.x
+tbodyacc.mean.y
+tbodyacc.mean.z
+tbodyacc.std.x
+tbodyacc.std.y
+tbodyacc.std.z
+tgravityacc.mean.x
+tgravityacc.mean.y
+tgravityacc.mean.z
+tgravityacc.std.x
+tgravityacc.std.y
+tgravityacc.std.z
+tbodyaccjerk.mean.x
+tbodyaccjerk.mean.y
+tbodyaccjerk.mean.z
+tbodyaccjerk.std.x
+tbodyaccjerk.std.y
+tbodyaccjerk.std.z
+tbodygyro.mean.x
+tbodygyro.mean.y
+tbodygyro.mean.z
+tbodygyro.std.x
+tbodygyro.std.y
+tbodygyro.std.z
+tbodygyrojerk.mean.x
+tbodygyrojerk.mean.y
+tbodygyrojerk.mean.z
+tbodygyrojerk.std.x
+tbodygyrojerk.std.y
+tbodygyrojerk.std.z
+tbodyaccmag.mean
+tbodyaccmag.std
+tgravityaccmag.mean
+tgravityaccmag.std
+tbodyaccjerkmag.mean
+tbodyaccjerkmag.std
+tbodygyromag.mean
+tbodygyromag.std
+tbodygyrojerkmag.mean
+tbodygyrojerkmag.std
+fbodyacc.mean.x
+fbodyacc.mean.y
+fbodyacc.mean.z
+fbodyacc.std.x
+fbodyacc.std.y
+fbodyacc.std.z
+fbodyaccjerk.mean.x
+fbodyaccjerk.mean.y
+fbodyaccjerk.mean.z
+fbodyaccjerk.std.x
+fbodyaccjerk.std.y
+fbodyaccjerk.std.z
+fbodygyro.mean.x
+fbodygyro.mean.y
+fbodygyro.mean.z
+fbodygyro.std.x
+fbodygyro.std.y
+fbodygyro.std.z
+fbodyaccmag.mean
+fbodyaccmag.std
+fbodybodyaccjerkmag.mean
+fbodybodyaccjerkmag.std
+fbodybodygyromag.mean
+fbodybodygyromag.std
+fbodybodygyrojerkmag.mean
+fbodybodygyrojerkmag.std
