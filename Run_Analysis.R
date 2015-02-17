@@ -1,6 +1,6 @@
 # This script downloads datasets from the location 
 #"https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
-# and returns two tidy datasets: tidy_dataset, containing means and standard deviations for each activity # and subject; and tidy_dataset2 containing the average of each feature for each activity and subject
+# and returns two tiy datasets: tiny_dataser, containing means and standard deviations for each activity # and subject; and tiny_dataset2 containing the average of each feature for each activity and subject
 
 Run_Analysis <- function(){
 
@@ -89,16 +89,16 @@ library(reshape2)
 	d <- NULL
 	names(m$S) <- "subject"
 	
-	# Merge the columns to have the tidy_dataset
+	# Merge the columns to have the tiny_dataset
 	
 	tidy_dataset <- cbind(m$S, m$Y, m$X)
     #write out the csv file. 
     write.csv(tidy_dataset, "tidy_dataset.txt", row.names=F)
 	
-	# Create the second tidy_dataset2
+	# Create the second tiny_dataset2
 	
 	melted <- melt(tidy_dataset, 1:2)
     tidy_dataset2 <- dcast(melted, subject + activity ~ variable, mean)
-    write.csv(tidy_dataset2, "tidy_dataset2.txt", row.names=F)
+    write.csv(tidy_dataset2, "tidy_dataset22.txt", row.names=F)
 }
 	
